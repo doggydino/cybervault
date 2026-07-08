@@ -1,18 +1,19 @@
-"""
-Simulated in-memory database
-DO NOT use real database yet (Day 2 topic)
-"""
+users = {}
 
-def get_user(username):
-    fake_users = {
-        "admin": {
-            "username": "admin",
-            "password": "hashed_admin123"
-        },
-        "student": {
-            "username": "student",
-            "password": "hashed_pass"
-        }
+
+def add_user(username, hashed_password):
+
+    if username in users:
+        return False
+
+    users[username] = {
+        "username": username,
+        "password": hashed_password
     }
 
-    return fake_users.get(username)
+    return True
+
+
+def get_user(username):
+
+    return users.get(username)

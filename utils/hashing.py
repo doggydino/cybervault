@@ -1,7 +1,27 @@
-"""
-Day 1: Simple hashing placeholder (NOT secure).
-We will replace this with bcrypt in Day 2.
-"""
+import bcrypt
 
-def simple_hash(password: str) -> str:
-    return "hashed_" + password
+
+def hash_password(password: str) -> str:
+    """
+    Returns a salted bcrypt hash.
+    """
+
+    salt = bcrypt.gensalt()
+
+    hashed = bcrypt.hashpw(
+        password.encode("utf-8"),
+        salt
+    )
+
+    return hashed.decode("utf-8")
+
+
+def verify_password(password: str, stored_hash: str) -> bool:
+    """
+    Returns True if password matches stored hash.
+    """
+
+    return bcrypt.checkpw(
+        password.encode("utf-8"),
+        stored_hash.encode("utf-8")
+    )

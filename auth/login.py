@@ -1,21 +1,18 @@
-from utils.hashing import simple_hash
 from database.users import get_user
+from utils.hashing import verify_password
+
 
 def login_user(username, password):
-    """
-    Day 1: This is a MOCK authentication function.
-    We are NOT validating real credentials yet.
-    """
+
+    if not username or not password:
+        return False
 
     user = get_user(username)
 
-    if not user:
+    if user is None:
         return False
 
-    # TODO (Day 2): Replace with proper hash comparison
-    hashed_input = simple_hash(password)
-
-    if hashed_input == user["password"]:
-        return True
-
-    return False
+    return verify_password(
+        password,
+        user["password"]
+    )

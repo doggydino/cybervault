@@ -1,0 +1,80 @@
+Expected Student Demonstration
+Register
+Username: alice
+Password: hello123
+
+Expected:
+
+Registration successful!
+
+-----
+
+
+Verify Storage
+
+Printing users should show something similar to:
+
+{
+ 'alice':
+    {
+      'username':'alice',
+      'password':
+'$2b$12$7Q5kP4JjvLQ6g8...'
+    }
+}
+
+
+
+Notice:
+
+password is NOT readable
+starts with $2b$
+every student gets a different value
+
+----
+
+
+Login
+
+Correct password
+
+Login successful.
+
+Wrong password
+
+Invalid username or password.
+
+----
+
+
+Common Instructor Discussion Points
+
+Ask students:
+
+Why do two identical passwords produce different hashes?
+
+Answer:
+
+bcrypt generates a random salt every time.
+
+
+-----
+
+Ask:
+
+Can we "decrypt" the stored password?
+
+Answer:
+
+No. Hashes are one-way functions. During login, we hash the entered password and compare it against the stored hash using bcrypt.checkpw()
+
+
+--------
+
+Ask:
+
+Why don't we compare two hashes ourselves?
+
+Answer:
+
+Because bcrypt stores the salt within the hash and performs the comparison securely.
